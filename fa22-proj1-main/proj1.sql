@@ -73,9 +73,12 @@ CREATE VIEW q2ii(namefirst, namelast, playerid, schoolid, yearid) AS
 ;
 
 -- Question 2iii
-CREATE VIEW q2iii(playerid, namefirst, namelast, schoolid)
-AS
-  SELECT 1, 1, 1, 1 -- replace this line
+CREATE VIEW q2iii(playerid, namefirst, namelast, schoolid) AS
+    -- FOR q2iii-alt: SELECT DISTINCT h.playerID, h.nameFirst, h.nameLast, c.schoolID
+    SELECT h.playerID, h.nameFirst, h.nameLast, c.schoolID
+    FROM q2i as h LEFT JOIN collegeplaying as c
+    ON h.playerID = c.playerID
+    ORDER BY h.playerID DESC, c.schoolID ASC
 ;
 
 -- Question 3i
