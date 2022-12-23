@@ -38,15 +38,20 @@ CREATE VIEW q1ii(namefirst, namelast, birthyear) AS
 ;
 
 -- Question 1iii
-CREATE VIEW q1iii(birthyear, avgheight, count)
-AS
-  SELECT 1, 1, 1 -- replace this line
+CREATE VIEW q1iii(birthyear, avgheight, count) AS
+    SELECT birthYear, AVG(height), COUNT(*)
+    FROM people
+    GROUP BY birthYear
+    ORDER BY birthYear ASC
 ;
 
 -- Question 1iv
-CREATE VIEW q1iv(birthyear, avgheight, count)
-AS
-  SELECT 1, 1, 1 -- replace this line
+CREATE VIEW q1iv(birthyear, avgheight, count) AS
+    SELECT birthYear, AVG(height), COUNT(*)
+    FROM people
+    GROUP BY birthYear
+    HAVING AVG(height) > 70
+    ORDER BY birthYear ASC
 ;
 
 -- Question 2i
