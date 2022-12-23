@@ -55,15 +55,21 @@ CREATE VIEW q1iv(birthyear, avgheight, count) AS
 ;
 
 -- Question 2i
-CREATE VIEW q2i(namefirst, namelast, playerid, yearid)
-AS
-  SELECT 1, 1, 1, 1 -- replace this line
+CREATE VIEW q2i(namefirst, namelast, playerid, yearid) AS
+    SELECT p.nameFirst, p.nameLast, p.playerID, h.yearid
+    FROM people as p LEFT JOIN halloffame as h
+    ON p.playerID = h.playerID
+    WHERE h.inducted = 'Y'
+    ORDER BY h.yearid DESC, p.playerID ASC
 ;
 
 -- Question 2ii
-CREATE VIEW q2ii(namefirst, namelast, playerid, schoolid, yearid)
-AS
-  SELECT 1, 1, 1, 1, 1 -- replace this line
+CREATE VIEW q2ii(namefirst, namelast, playerid, schoolid, yearid) AS
+    SELECT h.nameFirst, h.nameLast, h.playerID, c.schoolID, h.yearid
+    FROM q2i as h LEFT JOIN collegeplaying as c LEFT JOIN schools as s
+    ON h.playerID = c.playerID AND c.schoolID = s.schoolID
+    WHERE s.schoolState = 'CA'
+    ORDER BY h.yearid DESC, c.schoolID ASC, h.playerID ASC
 ;
 
 -- Question 2iii
