@@ -23,15 +23,18 @@ CREATE VIEW q0(era) AS
 ;
 
 -- Question 1i
-CREATE VIEW q1i(namefirst, namelast, birthyear)
-AS
-  SELECT 1, 1, 1 -- replace this line
+CREATE VIEW q1i(namefirst, namelast, birthyear) AS
+    SELECT nameFirst, nameLast, birthyear
+    FROM people
+    WHERE weight > 300
 ;
 
 -- Question 1ii
-CREATE VIEW q1ii(namefirst, namelast, birthyear)
-AS
-  SELECT 1, 1, 1 -- replace this line
+CREATE VIEW q1ii(namefirst, namelast, birthyear) AS
+    SELECT nameFirst, nameLast, birthyear
+    FROM people
+    WHERE nameFirst LIKE '% %'
+    ORDER BY nameFirst ASC , nameLast ASC
 ;
 
 -- Question 1iii
