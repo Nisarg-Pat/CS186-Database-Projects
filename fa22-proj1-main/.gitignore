@@ -25,3 +25,5 @@ target/*
 hw*.zip
 
 lahman.db
+/your_output/
+/diffs/
