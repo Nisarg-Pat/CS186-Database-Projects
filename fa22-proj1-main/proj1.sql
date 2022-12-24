@@ -82,15 +82,24 @@ CREATE VIEW q2iii(playerid, namefirst, namelast, schoolid) AS
 ;
 
 -- Question 3i
-CREATE VIEW q3i(playerid, namefirst, namelast, yearid, slg)
-AS
-  SELECT 1, 1, 1, 1, 1 -- replace this line
+CREATE VIEW q3i(playerid, namefirst, namelast, yearid, slg) AS
+    SELECT p.playerID, p.nameFirst, p.nameLast, b.yearID, CAST(b.H+b.H2B+2*b.H3B+3*b.HR AS FLOAT)/b.AB AS slg
+    FROM people as p LEFT JOIN batting as b
+    ON p.playerID = b.playerID
+    WHERE b.AB > 50
+    ORDER BY slg DESC, b.yearID, p.playerID
+    LIMIT 10
 ;
 
 -- Question 3ii
-CREATE VIEW q3ii(playerid, namefirst, namelast, lslg)
-AS
-  SELECT 1, 1, 1, 1 -- replace this line
+CREATE VIEW q3ii(playerid, namefirst, namelast, lslg) AS
+    SELECT p.playerID, p.nameFirst, p.nameLast, CAST(SUM(b.H+b.H2B+2*b.H3B+3*b.HR) AS FLOAT)/SUM(b.AB) AS lslg
+    FROM people as p LEFT JOIN batting as b
+    ON p.playerID = b.playerID
+    GROUP BY p.playerID, p.nameFirst, p.nameLast
+    HAVING SUM(b.AB) > 50
+    ORDER BY lslg DESC, b.yearID, p.playerID
+    LIMIT 10
 ;
 
 -- Question 3iii
