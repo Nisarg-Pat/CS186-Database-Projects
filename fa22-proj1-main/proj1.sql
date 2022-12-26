@@ -119,9 +119,11 @@ CREATE VIEW q3iii(namefirst, namelast, lslg) AS
 ;
 
 -- Question 4i
-CREATE VIEW q4i(yearid, min, max, avg)
-AS
-  SELECT 1, 1, 1, 1 -- replace this line
+CREATE VIEW q4i(yearid, min, max, avg) AS
+    SELECT yearID, MIN(salary), MAX(salary), SUM(salary)/COUNT(salary)
+    FROM salaries
+    GROUP BY yearID
+    ORDER BY yearID
 ;
 
 -- Question 4ii
