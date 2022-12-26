@@ -103,9 +103,19 @@ CREATE VIEW q3ii(playerid, namefirst, namelast, lslg) AS
 ;
 
 -- Question 3iii
-CREATE VIEW q3iii(namefirst, namelast, lslg)
-AS
-  SELECT 1, 1, 1 -- replace this line
+CREATE VIEW q3iii(namefirst, namelast, lslg) AS
+    SELECT p.nameFirst, p.nameLast, CAST(SUM(b.H+b.H2B+2*b.H3B+3*b.HR) AS FLOAT)/SUM(b.AB) AS lslg
+    FROM people as p LEFT JOIN batting as b
+    ON p.playerID = b.playerID
+    GROUP BY p.playerID, p.nameFirst, p.nameLast
+    HAVING SUM(b.AB) > 50 AND lslg > (
+        SELECT CAST(SUM(b.H+b.H2B+2*b.H3B+3*b.HR) AS FLOAT)/SUM(b.AB) AS alslg
+        FROM people as p LEFT JOIN batting as b
+        ON p.playerID = b.playerID
+        GROUP BY p.playerID
+        HAVING p.playerID = 'mayswi01'
+        )
+    ORDER BY lslg DESC, b.yearID, p.playerID
 ;
 
 -- Question 4i
