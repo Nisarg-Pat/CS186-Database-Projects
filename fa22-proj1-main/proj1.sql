@@ -129,7 +129,6 @@ CREATE VIEW q4i(yearid, min, max, avg) AS
 -- Question 4ii
 CREATE VIEW q4ii(binid, low, high, count) AS
     SELECT b.binid, b.low, b.high, COUNT(*)
-    --SELECT b.binid, b.low, b.high, s.salary
     FROM (SELECT b.binid                                                              AS binid,
                  (MAX(s.salary) - MIN(s.salary)) * b.binid / 10 + MIN(s.salary)       AS low,
                  (MAX(s.salary) - MIN(s.salary)) * (b.binid + 1) / 10 + MIN(s.salary) AS high
@@ -143,9 +142,11 @@ CREATE VIEW q4ii(binid, low, high, count) AS
 ;
 
 -- Question 4iii
-CREATE VIEW q4iii(yearid, mindiff, maxdiff, avgdiff)
-AS
-  SELECT 1, 1, 1, 1 -- replace this line
+CREATE VIEW q4iii(yearid, mindiff, maxdiff, avgdiff) AS
+    SELECT s1.yearid, s1.min-s2.min, s1.max-s2.max, s1.avg-s2.avg
+    FROM q4i as s1 LEFT JOIN q4i as s2
+    ON s1.yearid = s2.yearid+1
+    WHERE s1.yearid <> 1985
 ;
 
 -- Question 4iv
